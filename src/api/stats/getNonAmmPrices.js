@@ -43,7 +43,7 @@ const getNonAmmPrices = async tokenPrices => {
   const results = await Promise.allSettled(promises);
 
   results
-    .filter((r): r is PromiseFulfilledResult<any> => r.status === 'fulfilled')
+    .filter((r) => r.status === 'fulfilled')
     .forEach(r => {
       Object.assign(prices, r.value);
     });

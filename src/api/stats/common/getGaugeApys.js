@@ -1,9 +1,7 @@
 const BigNumber = require('bignumber.js');
 const { MultiCall } = require('eth-multicall');
 const { multicallAddress } = require('../../../utils/web3');
-
 const IGauge = require('../../../abis/IGauge.json');
-const ERC20 = require('../../../abis/ERC20.json');
 const fetchPrice = require('../../../utils/fetchPrice');
 import getApyBreakdown from '../common/getApyBreakdown';
 import { isSushiClient } from '../../../apollo/client';

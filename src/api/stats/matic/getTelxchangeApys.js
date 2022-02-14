@@ -3,12 +3,11 @@ import { MultiCall } from 'eth-multicall';
 import { polygonWeb3 as web3, multicallAddress } from '../../../utils/web3';
 
 // abis
-import { StakingRewards, StakingRewards_ABI } from '../../../abis/matic/Telxchange/StakingRewards';
-import { ERC20, ERC20_ABI } from '../../../abis/common/ERC20';
+import { StakingRewards_ABI } from '../../../abis/matic/Telxchange/StakingRewards';
+import { ERC20_ABI } from '../../../abis/common/ERC20';
 // json data
-import { LpPool } from '../../../types/LpPool';
 import _pools from '../../../data/matic/telxchangePools.json';
-const pools = _pools as LpPool[];
+const pools = _pools;
 
 import fetchPrice from '../../../utils/fetchPrice';
 import { POLYGON_CHAIN_ID, QUICK_LPF } from '../../../constants';
@@ -35,7 +34,7 @@ export const getTelxchangeApys = async () => {
   return getApyBreakdown(singleFarms, tradingAprs, farmApys, QUICK_LPF);
 };
 
-const getFarmApys = async (pools: LpPool[]) => {
+const getFarmApys = async (pools) => {
   const apys = [];
   const primaryRewardTokenPrice = await fetchPrice({ oracle, id: TEL.symbol });
   const [telDecimals] = [TEL].map(token => getEDecimals(token.decimals));
@@ -54,19 +53,19 @@ const getFarmApys = async (pools: LpPool[]) => {
   return apys;
 };
 
-const getPoolsData = async (pools: LpPool[]) => {
-  const multicall = new MultiCall(web3 as any, multicallAddress(POLYGON_CHAIN_ID));
+const getPoolsData = async (pools) => {
+  const multicall = new MultiCall(web3, multicallAddress(POLYGON_CHAIN_ID));
   const balanceCalls = [];
   const rewardRateCalls = [];
   pools.forEach(pool => {
-    const tokenContract = new web3.eth.Contract(ERC20_ABI, pool.address) as unknown as ERC20;
+    const tokenContract = new web3.eth.Contract(ERC20_ABI, pool.address);
     balanceCalls.push({
       balance: tokenContract.methods.balanceOf(pool.rewardPool),
     });
     const rewardPool = new web3.eth.Contract(
       StakingRewards_ABI,
       pool.rewardPool
-    ) as unknown as StakingRewards;
+    );
     rewardRateCalls.push({
       rewardRate: rewardPool.methods.rewardRate(),
     });

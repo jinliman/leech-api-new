@@ -6,7 +6,6 @@ const { AVAX_CHAIN_ID: chainId } = require('../../../constants');
 import pools from '../../../data/avax/maiLpPools.json';
 import { joeClient } from '../../../apollo/client';
 import { addressBook } from '../../../../packages/address-book/address-book';
-import { AbiItem } from 'web3-utils';
 import { JOE_LPF } from '../../../constants';
 
 const mai = addressBook.avax.platforms.mai;
@@ -16,7 +15,7 @@ export const getMaiApys = () => {
     web3: web3,
     chainId: chainId,
     masterchef: mai.chef,
-    masterchefAbi: MasterChefAbi as AbiItem[],
+    masterchefAbi: MasterChefAbi,
     tokenPerBlock: 'rewardPerBlock',
     hasMultiplier: false,
     pools: pools,

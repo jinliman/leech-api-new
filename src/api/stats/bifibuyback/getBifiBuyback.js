@@ -1,5 +1,3 @@
-import { BlockApiResponse, ERC20TxApiResponse } from './etherscanApiResponseTypes';
-
 import BigNumber from 'bignumber.js';
 import fetch from 'node-fetch';
 import { addressBook } from '../../../../packages/address-book/address-book';

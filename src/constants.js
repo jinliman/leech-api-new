@@ -83,7 +83,7 @@ const PANGOLIN_LPF = 0.003;
 const TETHYS_LPF = 0.002;
 const BEAMSWAP_LPF = 0.0017;
 
-const MULTICHAIN_RPC: Record<ChainId, string> = {
+const MULTICHAIN_RPC = {
   [ChainId.bsc]: BSC_RPC,
   [ChainId.heco]: HECO_RPC,
   [ChainId.polygon]: POLYGON_RPC,
@@ -101,33 +101,33 @@ const MULTICHAIN_RPC: Record<ChainId, string> = {
 };
 
 const BSC_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/bsc_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/bsc_pools.js';
 const HECO_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/heco_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/heco_pools.js';
 const AVAX_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/avalanche_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/avalanche_pools.js';
 const POLYGON_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/polygon_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/polygon_pools.js';
 const FANTOM_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/fantom_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/fantom_pools.js';
 const ONE_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/harmony_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/harmony_pools.js';
 const ARBITRUM_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/arbitrum_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/arbitrum_pools.js';
 const CELO_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/celo_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/celo_pools.js';
 const MOONRIVER_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/moonriver_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/moonriver_pools.js';
 const CRONOS_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/cronos_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/cronos_pools.js';
 const AURORA_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/aurora_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/aurora_pools.js';
 const FUSE_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/fuse_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/fuse_pools.js';
 const METIS_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/metis_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/metis_pools.js';
 const MOONBEAM_VAULTS_ENDPOINT =
-  'https://raw.githubusercontent.com/leechfinance/leech-app/prod/src/features/configure/vault/moonbeam_pools.js';
+  'https://raw.githubusercontent.com/jinliman/leech-app/main/src/features/configure/vault/moonbeam_pools.js';
 
 const MULTICHAIN_ENDPOINTS = {
   bsc: BSC_VAULTS_ENDPOINT,

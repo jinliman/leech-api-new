@@ -3,48 +3,13 @@ import { MultiCall } from 'eth-multicall';
 import { multicallAddress } from '../../../utils/web3';
 
 import IStakingDualRewards from '../../../abis/StakingDualRewards.json';
-import { ERC20, ERC20_ABI } from '../../../abis/common/ERC20';
+import { ERC20_ABI } from '../../../abis/common/ERC20';
 import fetchPrice from '../../../utils/fetchPrice';
 import getApyBreakdown from './getApyBreakdown';
 import { isSushiClient } from '../../../apollo/client';
 import { getTradingFeeApr, getTradingFeeAprSushi } from '../../../utils/getTradingFeeApr';
-import { LpPool } from '../../../types/LpPool';
-import { NormalizedCacheObject } from '@apollo/client/core';
-import { ApolloClient } from '@apollo/client/core';
-import Web3 from 'web3';
 
-export interface DualRewardPoolParams {
-  pools: LpPool[];
-
-  oracleIdA: string;
-  oracleA: string;
-  decimalsA: string;
-
-  oracleB: string;
-  oracleIdB: string;
-  decimalsB: string;
-
-  tokenAddress: string;
-  decimals: string;
-
-  web3: Web3;
-  chainId: number;
-
-  tradingFeeInfoClient?: ApolloClient<NormalizedCacheObject>;
-  liquidityProviderFee?: number;
-  tradingAprs?: {
-    [x: string]: any;
-  };
-
-  xTokenConfig?: {
-    xTokenAddress: string;
-    isXTokenAorB: 'A' | 'B';
-  };
-
-  log?: boolean;
-}
-
-export const getRewardPoolDualApys = async (params: DualRewardPoolParams) => {
+export const getRewardPoolDualApys = async (params) => {
   const tradingAprs = await getTradingAprs(params);
   const farmApys = await getFarmApys(params);
 
@@ -53,7 +18,7 @@ export const getRewardPoolDualApys = async (params: DualRewardPoolParams) => {
   return getApyBreakdown(params.pools, tradingAprs, farmApys, liquidityProviderFee);
 };
 
-const getTradingAprs = async (params: DualRewardPoolParams) => {
+const getTradingAprs = async (params) => {
   let tradingAprs = params.tradingAprs ?? {};
   const client = params.tradingFeeInfoClient;
   const fee = params.liquidityProviderFee;
@@ -66,7 +31,7 @@ const getTradingAprs = async (params: DualRewardPoolParams) => {
   return tradingAprs;
 };
 
-const getFarmApys = async (params: DualRewardPoolParams) => {
+const getFarmApys = async (params) => {
   const apys = [];
   let rewardATokenPrice = await fetchPrice({ oracle: params.oracleA, id: params.oracleIdA });
   let rewardBTokenPrice = await fetchPrice({ oracle: params.oracleB, id: params.oracleIdB });
@@ -120,14 +85,14 @@ const getFarmApys = async (params: DualRewardPoolParams) => {
   return apys;
 };
 
-const getPoolsData = async (params: DualRewardPoolParams) => {
+const getPoolsData = async (params) => {
   const web3 = params.web3;
-  const multicall = new MultiCall(web3 as any, multicallAddress(params.chainId));
+  const multicall = new MultiCall(web3, multicallAddress(params.chainId));
   const balanceCalls = [];
   const rewardRateACalls = [];
   const rewardRateBCalls = [];
   params.pools.forEach(pool => {
-    const rewardPool = new web3.eth.Contract(IStakingDualRewards as any, pool.rewardPool);
+    const rewardPool = new web3.eth.Contract(IStakingDualRewards, pool.rewardPool);
     balanceCalls.push({
       balance: rewardPool.methods.totalSupply(),
     });
@@ -156,15 +121,15 @@ const getPoolsData = async (params: DualRewardPoolParams) => {
   return { balances, rewardRatesA, rewardRatesB };
 };
 
-const getXPrice = async (tokenPrice, params: DualRewardPoolParams) => {
+const getXPrice = async (tokenPrice, params) => {
   const tokenContract = new params.web3.eth.Contract(
     ERC20_ABI,
     params.tokenAddress
-  ) as unknown as ERC20;
+  );
   const xTokenContract = new params.web3.eth.Contract(
     ERC20_ABI,
     params.xTokenConfig.xTokenAddress
-  ) as unknown as ERC20;
+  );
   const stakedInXPool = new BigNumber(
     await tokenContract.methods.balanceOf(params.xTokenConfig.xTokenAddress).call()
   );

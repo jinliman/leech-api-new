@@ -1,20 +1,10 @@
 import BigNumber from 'bignumber.js';
-import { NormalizedCacheObject } from '@apollo/client/core';
-import { ApolloClient } from '@apollo/client/core';
 import { MultiCall } from 'eth-multicall';
-import Web3 from 'web3';
-import { AbiItem } from 'web3-utils';
-
 import { multicallAddress } from '../../../utils/web3';
-import { ChainId } from '../../../../packages/address-book/address-book';
-
 import MasterChefAbi from '../../../abis/IMultiRewardMasterChef.json';
-import { ERC20, ERC20_ABI } from '../../../abis/common/ERC20';
 import { isSushiClient, isBeetClient } from '../../../apollo/client';
-import getApyBreakdown, { ApyBreakdownResult } from '../common/getApyBreakdown';
-import { LpPool, SingleAssetPool } from '../../../types/LpPool';
+import getApyBreakdown from '../common/getApyBreakdown';
 import fetchPrice from '../../../utils/fetchPrice';
-import getBlockNumber from '../../../utils/getBlockNumber';
 import getBlockTime from '../../../utils/getBlockTime';
 import { getEDecimals } from '../../../utils/getEDecimals';
 import {
@@ -23,29 +13,9 @@ import {
   getTradingFeeApr,
 } from '../../../utils/getTradingFeeApr';
 
-export interface MasterChefApysParams {
-  web3: Web3;
-  chainId: ChainId;
-  masterchef: string;
-  singlePools?: SingleAssetPool[];
-  pools?: LpPool[] | (LpPool | SingleAssetPool)[];
-  oracle: string;
-  oracleId: string;
-  decimals: string;
-  tradingFeeInfoClient?: ApolloClient<NormalizedCacheObject>;
-  liquidityProviderFee?: number;
-  log?: boolean;
-  tradingAprs?: {
-    [x: string]: any;
-  };
-  secondsPerBlock?: number;
-  allocPointIndex?: string;
-  burn?: number;
-}
-
 export const getMultiRewardMasterChefApys = async (
-  masterchefParams: MasterChefApysParams
-): Promise<ApyBreakdownResult> => {
+  masterchefParams
+) => {
   masterchefParams.pools = [
     ...(masterchefParams.pools ?? []),
     ...(masterchefParams.singlePools ?? []),
@@ -59,7 +29,7 @@ export const getMultiRewardMasterChefApys = async (
   return getApyBreakdown(masterchefParams.pools, tradingAprs, farmApys, liquidityProviderFee);
 };
 
-const getTradingAprs = async (params: MasterChefApysParams) => {
+const getTradingAprs = async (params) => {
   let tradingAprs = params.tradingAprs ?? {};
   const client = params.tradingFeeInfoClient;
   const fee = params.liquidityProviderFee;
@@ -76,8 +46,8 @@ const getTradingAprs = async (params: MasterChefApysParams) => {
   return tradingAprs;
 };
 
-const getFarmApys = async (params: MasterChefApysParams): Promise<BigNumber[]> => {
-  const apys: BigNumber[] = [];
+const getFarmApys = async (params) => {
+  const apys = [];
 
   const { balances, rewardTokens, rewardDecimals, rewardsPerSec } = await getPoolsData(params);
   const secondsPerBlock = params.secondsPerBlock ?? (await getBlockTime(params.chainId));
@@ -122,9 +92,9 @@ const getFarmApys = async (params: MasterChefApysParams): Promise<BigNumber[]> =
   return apys;
 };
 
-const getPoolsData = async (params: MasterChefApysParams) => {
+const getPoolsData = async (params) => {
   const masterchefContract = new params.web3.eth.Contract(MasterChefAbi, params.masterchef);
-  const multicall = new MultiCall(params.web3 as any, multicallAddress(params.chainId));
+  const multicall = new MultiCall(params.web3, multicallAddress(params.chainId));
   const chefCalls = [];
   params.pools.forEach(pool => {
     chefCalls.push({
@@ -135,9 +105,9 @@ const getPoolsData = async (params: MasterChefApysParams) => {
 
   const res = await multicall.all([chefCalls]);
 
-  const balances: BigNumber[] = res[0].map(v => new BigNumber(v.balance));
-  const rewardTokens: string[] = res[0].map(v => v.rewards['1']);
-  const rewardDecimals: number[] = res[0].map(v => v.rewards['2']);
-  const rewardsPerSec: BigNumber[] = res[0].map(v => v.rewards['3']);
+  const balances = res[0].map(v => new BigNumber(v.balance));
+  const rewardTokens = res[0].map(v => v.rewards['1']);
+  const rewardDecimals = res[0].map(v => v.rewards['2']);
+  const rewardsPerSec = res[0].map(v => v.rewards['3']);
   return { balances, rewardTokens, rewardDecimals, rewardsPerSec };
 };

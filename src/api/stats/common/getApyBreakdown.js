@@ -1,8 +1,5 @@
-import BigNumber from 'bignumber.js';
-
 import { getFarmWithTradingFeesApy } from '../../../utils/getFarmWithTradingFeesApy';
 import { compound } from '../../../utils/compound';
-
 import { BASE_HPY, LEECH_PERFORMANCE_FEE, SHARE_AFTER_PERFORMANCE_FEE } from '../../../constants';
 
 export const getApyBreakdown = (

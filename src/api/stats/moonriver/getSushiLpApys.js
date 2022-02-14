@@ -22,7 +22,7 @@ export const getSushiLpApys = () => {
   return getMiniChefApys({
     minichefConfig: {
       minichef,
-      minichefAbi: SushiMiniChefV2 as AbiItem[],
+      minichefAbi: SushiMiniChefV2,
       outputOracleId: mSUSHI.symbol,
       tokenPerSecondContractMethodName: 'sushiPerSecond',
     },

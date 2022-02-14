@@ -34,4 +34,4 @@ export const etherscanApiUrlMap = {
     url: 'https://api.cronoscan.com',
     apiToken: 'YPA7TM6IBEYHVVG9S5WQZT7URDNFVNTRDJ',
   },
-} as const;
+};

@@ -1,33 +1,22 @@
 import BigNumber from 'bignumber.js';
-import Web3 from 'web3';
-
-import { Swap, Swap_ABI } from '../../../../abis/common/Swap';
-import { SingleAssetPool } from '../../../../types/LpPool';
-
-// gets the prices of LPToken contracts deployed from Swap contracts.
-// Example is IronSwap (0x837503e8A8753ae17fB8C8151B8e6f586defCb57) on polygon
-
-interface SwapPricesParams {
-  web3: Web3;
-  pools: SingleAssetPool[];
-}
+import { Swap_ABI } from '../../../../abis/common/Swap';
 
 const getSwapPrices = async ({
   web3,
   pools,
-}: SwapPricesParams): Promise<Record<string, number>> => {
+}) => {
   // create closure of _getPrice with web3 to avoid passing in web3 every time
-  const getPrice = (pool: SingleAssetPool) => {
+  const getPrice = (pool) => {
     return _getPrice(web3, pool);
   };
 
   const swapPools = pools.filter(pool => pool.swap !== undefined);
 
-  const promises: Promise<[string, number]>[] = [];
+  const promises = [];
   swapPools.forEach(pool => promises.push(getPrice(pool)));
   const values = await Promise.all(promises);
 
-  const prices: Record<string, number> = {};
+  const prices = {};
 
   values.forEach(poolTokenPrice => {
     const [name, price] = poolTokenPrice;
@@ -37,8 +26,8 @@ const getSwapPrices = async ({
   return prices;
 };
 
-const _getPrice = async (web3: Web3, pool: SingleAssetPool): Promise<[string, number]> => {
-  const Swap = new web3.eth.Contract(Swap_ABI, pool.swap) as unknown as Swap;
+const _getPrice = async (web3, pool) => {
+  const Swap = new web3.eth.Contract(Swap_ABI, pool.swap);
   const virtualPrice = new BigNumber(await Swap.methods.getVirtualPrice().call());
   const tokenPrice = virtualPrice.dividedBy(pool.decimals).toNumber();
 

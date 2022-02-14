@@ -1,25 +1,18 @@
 import BigNumber from 'bignumber.js';
-import Web3 from 'web3';
-import { MultiCall, ShapeWithLabel } from 'eth-multicall';
+import { MultiCall } from 'eth-multicall';
 import { multicallAddress } from '../../../utils/web3';
-import { ChainId } from '../../../../packages/address-book/types/chainid';
 
 import fetchPrice from '../../../utils/fetchPrice';
 import { getApyBreakdown } from './getApyBreakdown';
-import { LpPool, SingleAssetPool } from '../../../types/LpPool';
 
 // trading apr
 import { SUSHI_LPF } from '../../../constants';
 import { getTradingFeeAprSushi, getTradingFeeApr } from '../../../utils/getTradingFeeApr';
 import { isSushiClient } from '../../../apollo/client';
-import { NormalizedCacheObject } from '@apollo/client/core';
-import { ApolloClient } from '@apollo/client/core';
 
 // abis
 import SushiComplexRewarderTime from '../../../abis/matic/SushiComplexRewarderTime.json';
 import ERC20 from '../../../abis/ERC20.json';
-import { Contract } from 'web3-eth-contract';
-import { AbiItem } from 'web3-utils';
 
 const oracle = 'tokens';
 const DECIMALS = '1e18';

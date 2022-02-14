@@ -3,8 +3,6 @@ import BigNumber from 'bignumber.js';
 import {
   PromiEvent,
   TransactionReceipt,
-  EventResponse,
-  EventData,
   Web3ContractContext,
 } from 'ethereum-abi-types-generator';
 

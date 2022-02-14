@@ -1,13 +1,11 @@
 import { avaxWeb3 } from '../../../utils/web3';
 import { AVAX_CHAIN_ID } from '../../../constants';
-
 import { getMiniChefApys } from '../common/getMiniChefApys';
-const { pangolinClient } = require('../../../apollo/client');
-
 import pools from '../../../data/avax/pangolinv2LpPools.json';
 import PangolinChef from '../../../abis/avax/PangolinChef.json';
 import { PANGOLIN_LPF } from '../../../constants';
-import { AbiItem } from 'web3-utils';
+
+const { pangolinClient } = require('../../../apollo/client');
 
 import { addressBook } from '../../../../packages/address-book/address-book';
 const {
@@ -23,7 +21,7 @@ export const getPangolinV2Apys = () => {
   return getMiniChefApys({
     minichefConfig: {
       minichef,
-      minichefAbi: PangolinChef as AbiItem[],
+      minichefAbi: PangolinChef,
       outputOracleId: PNG.symbol,
       tokenPerSecondContractMethodName: 'rewardPerSecond',
     },

@@ -10,34 +10,19 @@ import {
 import getBlockTime from './getBlockTime';
 import getBlockNumber from './getBlockNumber';
 import BigNumber from 'bignumber.js';
-import { NormalizedCacheObject } from '@apollo/client/core';
-import { ApolloClient } from '@apollo/client/core';
-
-interface PairDayData {
-  id: string;
-  dailyVolumeUSD: number;
-  volumeUSD: number;
-  reserveUSD: number;
-}
-
-interface Pools {
-  address: string;
-  totalSwapFee: number;
-  totalLiquidity: number;
-}
 
 export const getTradingFeeApr = async (
-  client: ApolloClient<NormalizedCacheObject>,
-  pairAddresses: string[],
-  liquidityProviderFee: number
+  client,
+  pairAddresses,
+  liquidityProviderFee
 ) => {
   const [start, end] = getUtcSecondsFromDayRange(1, 2);
-  const pairAddressToAprMap: Record<string, BigNumber> = {};
+  const pairAddressToAprMap = {};
 
   try {
     let {
       data: { pairDayDatas },
-    }: { data: { pairDayDatas: PairDayData[] } } = await client.query({
+    } = await client.query({
       query: pairDayDataQuery(addressesToLowercase(pairAddresses), start, end),
     });
 
@@ -56,13 +41,13 @@ export const getTradingFeeApr = async (
 };
 
 export const getTradingFeeAprSushi = async (
-  client: ApolloClient<NormalizedCacheObject>,
-  pairAddresses: string[],
-  liquidityProviderFee: number
+  client,
+  pairAddresses,
+  liquidityProviderFee
 ) => {
   const [start0, end0] = getUtcSecondsFromDayRange(1, 2);
   const [start1, end1] = getUtcSecondsFromDayRange(3, 4);
-  const pairAddressToAprMap: Record<string, BigNumber> = {};
+  const pairAddressToAprMap = {};
 
   try {
     let queryResponse0 = await client.query({
@@ -99,14 +84,14 @@ export const getTradingFeeAprSushi = async (
 };
 
 export const getTradingFeeAprBalancer = async (
-  client: ApolloClient<NormalizedCacheObject>,
-  pairAddresses: string[],
-  liquidityProviderFee: number
+  client,
+  pairAddresses,
+  liquidityProviderFee
 ) => {
   const blockTime = await getBlockTime(250);
   const currentBlock = await getBlockNumber(250);
   const pastBlock = Math.floor(currentBlock - 86400 / blockTime);
-  const pairAddressesToAprMap: Record<string, BigNumber> = {};
+  const pairAddressesToAprMap = {};
 
   try {
     const queryCurrent = await client.query({
@@ -138,17 +123,17 @@ export const getTradingFeeAprBalancer = async (
 };
 
 export const getVariableTradingFeeApr = async (
-  client: ApolloClient<NormalizedCacheObject>,
-  pairAddresses: string[],
-  liquidityProviderFee: number[]
+  client,
+  pairAddresses,
+  liquidityProviderFee
 ) => {
   const [start, end] = getUtcSecondsFromDayRange(1, 2);
-  const pairAddressToAprMap: Record<string, BigNumber> = {};
+  const pairAddressToAprMap = {};
 
   try {
     let {
       data: { pairDayDatas },
-    }: { data: { pairDayDatas: PairDayData[] } } = await client.query({
+    } = await client.query({
       query: pairDayDataQuery(addressesToLowercase(pairAddresses), start, end),
     });
     let i = 0;
@@ -167,7 +152,7 @@ export const getVariableTradingFeeApr = async (
   return pairAddressToAprMap;
 };
 
-const addressesToLowercase = (pairAddresses: string[]) =>
+const addressesToLowercase = (pairAddresses) =>
   pairAddresses.map(address => address.toLowerCase());
 
 const zip = arrays => {
@@ -179,8 +164,8 @@ const zip = arrays => {
 };
 
 export const getYearlyPlatformTradingFees = async (
-  client: ApolloClient<NormalizedCacheObject>,
-  liquidityProviderFee: number
+  client,
+  liquidityProviderFee
 ) => {
   let yearlyTradingFeesUsd = new BigNumber(0);
   const timestamp = Date.now();
@@ -199,8 +184,8 @@ export const getYearlyPlatformTradingFees = async (
 };
 
 export const getYearlyJoePlatformTradingFees = async (
-  client: ApolloClient<NormalizedCacheObject>,
-  liquidityProviderFee: number
+  client,
+  liquidityProviderFee
 ) => {
   let yearlyTradingFeesUsd = new BigNumber(0);
   const timestamp = Date.now();
@@ -219,8 +204,8 @@ export const getYearlyJoePlatformTradingFees = async (
 };
 
 export const getYearlyBalancerPlatformTradingFees = async (
-  client: ApolloClient<NormalizedCacheObject>,
-  liquidityProviderFeeShare: number
+  client,
+  liquidityProviderFeeShare
 ) => {
   const blockTime = await getBlockTime(250);
   const currentBlock = await getBlockNumber(250);

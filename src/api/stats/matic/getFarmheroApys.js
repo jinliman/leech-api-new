@@ -3,14 +3,13 @@ import { MultiCall } from 'eth-multicall';
 import { polygonWeb3 as web3, multicallAddress } from '../../../utils/web3';
 
 // abis
-import { FarmHeroChef, FarmHeroChef_ABI } from '../../../abis/matic/FarmHero/FarmHeroChef';
+import { FarmHeroChef_ABI } from '../../../abis/matic/FarmHero/FarmHeroChef';
 import {
-  IFarmHeroStrategy,
   IFarmHeroStrategy_ABI,
 } from '../../../abis/matic/FarmHero/IFarmHeroStrategy';
 // json data
 import _pools from '../../../data/matic/farmheroPools.json';
-const pools = _pools as LpPool[];
+const pools = _pools;
 
 import fetchPrice from '../../../utils/fetchPrice';
 import { POLYGON_CHAIN_ID, QUICK_LPF } from '../../../constants';
@@ -19,7 +18,6 @@ import { quickClient } from '../../../apollo/client';
 import getApyBreakdown from '../common/getApyBreakdown';
 import { addressBook } from '../../../../packages/address-book/address-book/';
 import { getEDecimals } from '../../../utils/getEDecimals';
-import { LpPool } from '../../../types/LpPool';
 
 const {
   platforms: { farmhero },
@@ -43,9 +41,9 @@ export const getFarmheroApys = async () => {
   return getApyBreakdown(pools, tradingAprs, farmApys, QUICK_LPF);
 };
 
-const getFarmApys = async (pools: LpPool[]): Promise<BigNumber[]> => {
-  const apys: BigNumber[] = [];
-  const chefContract = new web3.eth.Contract(FarmHeroChef_ABI, chef) as unknown as FarmHeroChef;
+const getFarmApys = async (pools) => {
+  const apys = [];
+  const chefContract = new web3.eth.Contract(FarmHeroChef_ABI, chef);
   const totalEpoch = await chefContract.methods.totalEpoch().call();
   const epochsLeft = await chefContract.methods.epochsLeft().call();
   const currentEpoch = (parseInt(totalEpoch) - parseInt(epochsLeft)).toString();
@@ -55,7 +53,7 @@ const getFarmApys = async (pools: LpPool[]): Promise<BigNumber[]> => {
   const erc20PoolRate = new BigNumber(await chefContract.methods.erc20PoolRate().call());
   const totalAllocPoint = new BigNumber(await chefContract.methods.totalAllocPoint(0).call()); //  enum PoolType { ERC20, ERC721, ERC1155 } // thus ERC20 = 0
 
-  const tokenPrice: number = await fetchPrice({ oracle, id: oracleId });
+  const tokenPrice = await fetchPrice({ oracle, id: oracleId });
   const { balances, allocPoints } = await getPoolsData(pools);
   for (let i = 0; i < pools.length; i++) {
     const pool = pools[i];
@@ -77,17 +75,17 @@ const getFarmApys = async (pools: LpPool[]): Promise<BigNumber[]> => {
 };
 
 const getPoolsData = async (
-  pools: LpPool[]
-): Promise<{ balances: BigNumber[]; allocPoints: BigNumber[] }> => {
-  const chefContract = new web3.eth.Contract(FarmHeroChef_ABI, chef) as unknown as FarmHeroChef;
-  const multicall = new MultiCall(web3 as any, multicallAddress(POLYGON_CHAIN_ID));
+  pools
+) => {
+  const chefContract = new web3.eth.Contract(FarmHeroChef_ABI, chef);
+  const multicall = new MultiCall(web3, multicallAddress(POLYGON_CHAIN_ID));
   const balanceCalls = [];
   const allocPointCalls = [];
   pools.forEach(pool => {
     const stratContract = new web3.eth.Contract(
       IFarmHeroStrategy_ABI,
       pool.strat
-    ) as unknown as IFarmHeroStrategy;
+    );
     balanceCalls.push({
       balance: stratContract.methods.wantLockedTotal(),
     });
@@ -98,7 +96,7 @@ const getPoolsData = async (
 
   const res = await multicall.all([balanceCalls, allocPointCalls]);
 
-  const balances: BigNumber[] = res[0].map(v => new BigNumber(v.balance));
-  const allocPoints: BigNumber[] = res[1].map(v => v.allocPoint['2']);
+  const balances = res[0].map(v => new BigNumber(v.balance));
+  const allocPoints = res[1].map(v => v.allocPoint['2']);
   return { balances, allocPoints };
 };

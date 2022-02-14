@@ -49,7 +49,7 @@ const MULTICALLS = {
   [ChainId.moonbeam]: addressBookByChainId[ChainId.moonbeam].platforms.leechfinance.multicall,
 };
 
-const clients: Record<keyof typeof ChainId, Web3[]> = {
+const clients = {
   bsc: [],
   heco: [],
   avax: [],
@@ -99,7 +99,7 @@ export const chainRandomClients = {
   moonbeamRandomClient: () => clients.moonbeam[~~(clients.moonbeam.length * Math.random())],
 };
 
-export const _web3Factory = (chainId: ChainId) => {
+export const _web3Factory = (chainId) => {
   switch (chainId) {
     case BSC_CHAIN_ID:
       return chainRandomClients.bscRandomClient();
@@ -132,4 +132,4 @@ export const _web3Factory = (chainId: ChainId) => {
   }
 };
 
-export const _multicallAddress = (chainId: ChainId) => MULTICALLS[chainId];
+export const _multicallAddress = (chainId) => MULTICALLS[chainId];

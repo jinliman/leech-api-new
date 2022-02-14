@@ -11,4 +11,4 @@ export const bifiLpMap = {
   moonriver: moonriver.platforms.sushi.bifiMovrLp,
   arbitrum: arbitrum.platforms.sushi.bifiEthLp,
   cronos: cronos.platforms.vvs.bifiCroLp,
-} as const;
+};

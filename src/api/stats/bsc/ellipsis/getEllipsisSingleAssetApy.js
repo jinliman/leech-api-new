@@ -1,9 +1,6 @@
 import { bscWeb3 as web3 } from '../../../../utils/web3';
-import getMultiFeeDistributionSingleAssetApy, {
-  MultiFeeDistributionSingleAssetApyParams,
-} from '../../common/getMultiFeeDistributionSingleAssetApy';
+import getMultiFeeDistributionSingleAssetApy from '../../common/getMultiFeeDistributionSingleAssetApy';
 import { addressBook } from '../../../../../packages/address-book/address-book';
-import { ApyBreakdownResult } from '../../common/getApyBreakdown';
 
 const {
   bsc: {
@@ -13,14 +10,14 @@ const {
 } = addressBook;
 
 const getEllipsisSingleAssetApy = async () => {
-  const params: MultiFeeDistributionSingleAssetApyParams = {
+  const params = {
     web3,
     multiFeeDistributionAddress: ellipsis.multiFeeDistribution,
     want: EPS,
     output: BUSD,
     poolName: 'ellipsis-eps',
   };
-  const apy: ApyBreakdownResult = await getMultiFeeDistributionSingleAssetApy(params);
+  const apy = await getMultiFeeDistributionSingleAssetApy(params);
   return apy;
 };
 

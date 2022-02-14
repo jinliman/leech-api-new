@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "install-all": "yarn && cd packages/address-book && yarn",
     "start": "ts-node -r dotenv/config src/app.js dotenv_config_path=.env",
     "dev": "nodemon -r dotenv/config -e js,ts,json src/app.js dotenv_config_path=.env",
     "addFarm": "ts-node scripts/add-farm.js",
