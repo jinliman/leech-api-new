@@ -12,6 +12,6 @@ const _aurora = {
   },
   tokens,
   tokenAddressMap: convertSymbolTokenMapToAddressTokenMap(tokens),
-} as const;
+};
 
 export const aurora = _aurora;

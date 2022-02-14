@@ -10,6 +10,6 @@ const _moonbeam = {
   },
   tokens,
   tokenAddressMap: convertSymbolTokenMapToAddressTokenMap(tokens),
-} as const;
+};
 
 export const moonbeam = _moonbeam;

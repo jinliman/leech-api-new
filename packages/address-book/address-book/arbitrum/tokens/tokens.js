@@ -1,6 +1,3 @@
-import { ConstRecord } from '../../../types/const';
-import Token from '../../../types/token';
-
 const ETH = {
   name: 'Wrapped Ether',
   address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
@@ -10,7 +7,7 @@ const ETH = {
   website: 'https://weth.io/',
   description: 'Ether or ETH is the native currency built on the Ethereum blockchain.',
   logoURI: 'https://arbiscan.io/token/images/weth_28.png',
-} as const;
+};
 
 const _tokens = {
   ETH,
@@ -129,6 +126,6 @@ const _tokens = {
     description:
       'Treasure bridges the growing network of metaverses through an open and composable approach to the convergence of NFTs, DeFi and Gaming. Cross-ecosystem ties are bolstered through our interrelated resource model. $MAGIC (Power), Treasures (NFT | Resources) and Legions (NFT | Players)',
   },
-} as const;
+};
 
-export const tokens: ConstRecord<typeof _tokens, Token> = _tokens;
+export const tokens = _tokens;

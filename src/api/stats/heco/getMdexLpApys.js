@@ -15,16 +15,15 @@ const getBlockNumber = require('../../../utils/getBlockNumber');
 const hecoPool = '0xFB03e11D93632D97a8981158A632Dd5986F5E909';
 
 const liquidityProviderFee = 0.0014;
-const beefyPerformanceFee = 0.045;
-const shareAfterBeefyPerformanceFee = 1 - beefyPerformanceFee;
+const leechPerformanceFee = 0.045;
+const shareAfterLeechPerformanceFee = 1 - leechPerformanceFee;
 
 const getMdexLpApys = async () => {
   let apys = {};
   let apyBreakdowns = {};
 
   const pairAddresses = pools.map(pool => pool.address);
-  const tradingAprs = {}; //await getTradingFeeApr(mdexHecoClient, pairAddresses, liquidityProviderFee);
-
+  const tradingAprs = {};
   const allPools = [...pools];
 
   let promises = [];
@@ -33,8 +32,8 @@ const getMdexLpApys = async () => {
 
   for (let item of values) {
     const simpleApr = item.simpleApr;
-    const vaultApr = simpleApr.times(shareAfterBeefyPerformanceFee);
-    const vaultApy = compound(simpleApr, BASE_HPY, 1, shareAfterBeefyPerformanceFee);
+    const vaultApr = simpleApr.times(shareAfterLeechPerformanceFee);
+    const vaultApy = compound(simpleApr, BASE_HPY, 1, shareAfterLeechPerformanceFee);
     const tradingApr = tradingAprs[item.address.toLowerCase()] ?? new BigNumber(0);
     const totalApy = getFarmWithTradingFeesApy(simpleApr, tradingApr, BASE_HPY, 1, 0.955);
     const legacyApyValue = { [item.name]: totalApy };
@@ -46,7 +45,7 @@ const getMdexLpApys = async () => {
       [item.name]: {
         vaultApr: vaultApr.toNumber(),
         compoundingsPerYear: BASE_HPY,
-        beefyPerformanceFee: beefyPerformanceFee,
+        leechPerformanceFee: leechPerformanceFee,
         vaultApy: vaultApy,
         lpFee: liquidityProviderFee,
         tradingApr: tradingApr.toNumber(),

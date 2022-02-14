@@ -12,6 +12,6 @@ const _cronos = {
   },
   tokens,
   tokenAddressMap: convertSymbolTokenMapToAddressTokenMap(tokens),
-} as const;
+};
 
 export const cronos  = _cronos;

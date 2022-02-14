@@ -1,6 +1,3 @@
-import { ConstRecord } from '../../../types/const';
-import Token from '../../../types/token';
-
 const AVAX = {
   chainId: 43114,
   address: '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7',
@@ -12,7 +9,7 @@ const AVAX = {
     'Avalanche is the fastest smart contracts platform in the blockchain industry, as measured by time-to-finality, and has the most validators securing its activity of any proof-of-stake protocol.',
   logoURI:
     'https://raw.githubusercontent.com/ava-labs/bridge-tokens/main/avalanche-tokens/0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7/logo.png',
-} as const;
+};
 
 const _tokens = {
   LUNA: {
@@ -4180,6 +4177,6 @@ const _tokens = {
       'ROCO is a decentralized GAMEFI platform which provide blockchain services to game developers, content creators and player communities through the blockchain network.',
     logoURI: 'https://assets.coingecko.com/coins/images/19234/large/86109466.png?1634769540',
   },
-} as const;
+};
 
-export const tokens: ConstRecord<typeof _tokens, Token> = _tokens;
+export const tokens = _tokens;

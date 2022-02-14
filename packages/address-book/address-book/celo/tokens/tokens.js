@@ -12,7 +12,7 @@ const CELO = {
     'Celo is a mobile-first platform that makes financial dApps and crypto payments accessible to anyone with a mobile phone',
   logoURI:
     'https://res.cloudinary.com/dnz2bkszg/image/fetch/f_auto/https://raw.githubusercontent.com/sushiswap/icons/master/token/one.jpg',
-} as const;
+};
 
 const WCELO = {
   ...CELO,
@@ -156,6 +156,6 @@ const _tokens = {
     ...SUSHIV1,
     symbol: 'cSUSHI',
   },
-} as const;
+};
 
-export const tokens: ConstRecord<typeof _tokens, Token> = _tokens;
+export const tokens = _tokens;

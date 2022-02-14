@@ -12,7 +12,7 @@ const BNB = {
     'Binance Coin (BNB) is an exchange-based token created and issued by the cryptocurrency exchange Binance. Initially created on the Ethereum blockchain as an ERC-20 token in July 2017, BNB was migrated over to Binance Chain in February 2019 and became the native coin of the Binance Chain.',
   logoURI:
     'https://pancakeswap.finance/images/tokens/0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c.png',
-} as const;
+};
 
 const _tokens = {
   ERTHA: {
@@ -3305,5 +3305,5 @@ const _tokens = {
     website: 'https://www.lacucina.io/',
     description: 'LaCucina will offer you new and exciting ways to succeed in DeFi with NFTs',
   },
-} as const;
-export const tokens: ConstRecord<typeof _tokens, Token> = _tokens;
+};
+export const tokens = _tokens;

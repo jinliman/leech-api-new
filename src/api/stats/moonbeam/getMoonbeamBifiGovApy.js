@@ -1,6 +1,5 @@
 const BigNumber = require('bignumber.js');
 const { moonbeamWeb3: web3, web3Factory } = require('../../../utils/web3');
-
 const IRewardPool = require('../../../abis/IRewardPool.json');
 const fetchPrice = require('../../../utils/fetchPrice');
 const ERC20 = require('../../../abis/ERC20.json');
@@ -8,7 +7,7 @@ const { MOONBEAM_CHAIN_ID: chainId, BASE_HPY } = require('../../../constants');
 import { addressBook } from '../../../../packages/address-book/address-book';
 const {
   moonbeam: {
-    platforms: { beefyfinance },
+    platforms: { leechfinance },
     tokens: { BIFI },
   },
 } = addressBook;
@@ -42,7 +41,7 @@ const getMoonbeamBifiGovApy = async () => {
 const getYearlyRewardsInUsd = async () => {
   const nativePrice = await fetchPrice({ oracle: ORACLE, id: REWARD_ORACLE });
 
-  const rewardPool = new web3.eth.Contract(IRewardPool, beefyfinance.rewardPool);
+  const rewardPool = new web3.eth.Contract(IRewardPool, leechfinance.rewardPool);
   const rewardRate = new BigNumber(await rewardPool.methods.rewardRate().call());
   const yearlyRewards = rewardRate.times(3).times(BLOCKS_PER_DAY).times(365);
   const yearlyRewardsInUsd = yearlyRewards.times(nativePrice).dividedBy(DECIMALS);
@@ -55,7 +54,7 @@ const getTotalStakedInUsd = async () => {
 
   const tokenContract = new web3.eth.Contract(ERC20, BIFI.address);
   const totalStaked = new BigNumber(
-    await tokenContract.methods.balanceOf(beefyfinance.rewardPool).call()
+    await tokenContract.methods.balanceOf(leechfinance.rewardPool).call()
   );
   const tokenPrice = await fetchPrice({ oracle: ORACLE, id: ORACLE_ID });
 

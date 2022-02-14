@@ -44,6 +44,6 @@ const _polygon = {
   },
   tokens,
   tokenAddressMap: convertSymbolTokenMapToAddressTokenMap(tokens),
-} as const;
+};
 
 export const polygon = _polygon;

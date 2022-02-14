@@ -26,36 +26,11 @@ const DECIMALS = '1e18';
 const secondsPerBlock = 1;
 const secondsPerYear = 31536000;
 
-interface MiniChefApyParams {
-  minichefConfig: {
-    minichef: string; // address
-    minichefAbi: AbiItem[];
-    outputOracleId: string; // i.e. SUSHI
-    tokenPerSecondContractMethodName: `${string}PerSecond`;
-  };
-  rewarderConfig?: {
-    // TODO: get this info from minichef rather than hardcoding it
-    rewarder: string; // address
-    rewarderTokenOracleId: string; // i.e. WMATIC
-    // totalAllocPoint is non public
-    // https://github.com/sushiswap/sushiswap/blob/37026f3749f9dcdae89891f168d63667845576a7/contracts/mocks/ComplexRewarderTime.sol#L44
-    // need to pass in same hardcoded value found here:
-    // https://github.com/sushiswap/sushiswap-interface/blob/6300093e17756038a5b5089282d7bbe6dce87759/src/hooks/minichefv2/useFarms.ts#L77
-    rewarderTotalAllocPoint: number;
-  };
-  pools: (LpPool | SingleAssetPool)[];
-  tradingClient?: ApolloClient<NormalizedCacheObject>;
-  sushiClient?: boolean;
-  liquidityProviderFee?: number;
-  web3: Web3;
-  chainId: ChainId;
-}
-
-export const getMiniChefApys = async (params: MiniChefApyParams) => {
+export const getMiniChefApys = async () => {
   const { pools, tradingClient, sushiClient, liquidityProviderFee } = params;
   const pairAddresses = pools.map(pool => pool.address);
-  let tradingAprs: Record<string, BigNumber> | undefined;
-  let fee: number | undefined;
+  let tradingAprs;
+  let fee;
   if (tradingClient !== undefined) {
     fee = liquidityProviderFee !== undefined ? liquidityProviderFee : SUSHI_LPF;
     tradingAprs = (await isSushiClient(tradingClient))
@@ -69,13 +44,13 @@ export const getMiniChefApys = async (params: MiniChefApyParams) => {
   return getApyBreakdown(pools, tradingAprs, farmApys, fee);
 };
 
-const getFarmApys = async (params: MiniChefApyParams) => {
+const getFarmApys = async (params) => {
   const { web3, pools, minichefConfig, rewarderConfig } = params;
   const apys = [];
 
   // minichef
   const minichefContract = new web3.eth.Contract(
-    minichefConfig.minichefAbi as any,
+    minichefConfig.minichefAbi,
     minichefConfig.minichef
   );
   const miniChefTokenPerSecond = new BigNumber(
@@ -87,13 +62,13 @@ const getFarmApys = async (params: MiniChefApyParams) => {
   const miniChefTokenPrice = await fetchPrice({ oracle, id: minichefConfig.outputOracleId });
 
   // rewarder, if rewarder is set
-  let rewarderContract: Contract | undefined = undefined;
-  let rewarderTokenPerSecond: BigNumber | undefined;
-  let rewarderTokenPrice: number | undefined;
+  let rewarderContract = undefined;
+  let rewarderTokenPerSecond ;
+  let rewarderTokenPrice;
 
   if (rewarderConfig) {
     rewarderContract = new web3.eth.Contract(
-      SushiComplexRewarderTime as any,
+      SushiComplexRewarderTime,
       rewarderConfig.rewarder
     );
     rewarderTokenPerSecond = new BigNumber(await rewarderContract.methods.rewardPerSecond().call());
@@ -112,7 +87,7 @@ const getFarmApys = async (params: MiniChefApyParams) => {
     const lpPrice = await fetchPrice({ oracle: 'lps', id: pool.name });
     const totalStakedInUsd = balances[i].times(lpPrice).dividedBy('1e18');
 
-    let totalYearlyRewardsInUsd: BigNumber = new BigNumber(0);
+    let totalYearlyRewardsInUsd = new BigNumber(0);
 
     // MiniChef rewards
     const miniChefPoolBlockRewards = miniChefTokenPerSecond
@@ -143,19 +118,19 @@ const getFarmApys = async (params: MiniChefApyParams) => {
   return apys;
 };
 
-const getPoolsData = async (params: MiniChefApyParams) => {
+const getPoolsData = async (params) => {
   const { web3, pools, minichefConfig, rewarderConfig, chainId } = params;
 
   const minichefContract = new web3.eth.Contract(
-    minichefConfig.minichefAbi as any,
+    minichefConfig.minichefAbi,
     minichefConfig.minichef
   );
 
   // rewarder, if rewarder is set
-  let rewarderContract: Contract | undefined = undefined;
+  let rewarderContract = undefined;
   if (rewarderConfig) {
     rewarderContract = new web3.eth.Contract(
-      SushiComplexRewarderTime as any,
+      SushiComplexRewarderTime,
       rewarderConfig.rewarder
     );
   }
@@ -164,7 +139,7 @@ const getPoolsData = async (params: MiniChefApyParams) => {
   const allocPointCalls = [];
   const rewardAllocPointCalls = [];
   pools.forEach(pool => {
-    const tokenContract = new web3.eth.Contract(ERC20 as any, pool.address);
+    const tokenContract = new web3.eth.Contract(ERC20, pool.address);
     balanceCalls.push({
       balance: tokenContract.methods.balanceOf(minichefConfig.minichef),
     });
@@ -180,8 +155,8 @@ const getPoolsData = async (params: MiniChefApyParams) => {
     }
   });
 
-  const multicall = new MultiCall(web3 as any, multicallAddress(chainId));
-  const multicallParams: ShapeWithLabel[][] = [balanceCalls, allocPointCalls];
+  const multicall = new MultiCall(web3, multicallAddress(chainId));
+  const multicallParams = [balanceCalls, allocPointCalls];
 
   // rewarder, if rewarder is set
   if (rewarderConfig) {

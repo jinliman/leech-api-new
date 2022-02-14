@@ -33,10 +33,6 @@ const getFarmApys = async pools => {
   const sushiPerSecond = new BigNumber(await minichefContract.methods.sushiPerSecond().call());
   const totalAllocPoint = new BigNumber(await minichefContract.methods.totalAllocPoint().call());
 
-  // totalAllocPoint is non public
-  // https://github.com/sushiswap/sushiswap/blob/37026f3749f9dcdae89891f168d63667845576a7/contracts/mocks/ComplexRewarderTime.sol#L44
-  // hardcoding to the same value SushiSwap hardcoded to
-  // https://github.com/sushiswap/sushiswap-interface/blob/6300093e17756038a5b5089282d7bbe6dce87759/src/hooks/minichefv2/useFarms.ts#L77
   const hardcodedTotalAllocPoint = 8400;
 
   const tokenPrice = await fetchPrice({ oracle, id: oracleId });

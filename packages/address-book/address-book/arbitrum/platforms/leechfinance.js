@@ -13,4 +13,4 @@ export const leechfinance = {
   leechFeeRecipient: '0xabCF33106937Ba7f53986F2c339Dd7F1953CE136',
   multicall: '0x13aD51a6664973EbD0749a7c84939d973F247921',
   bifiMaxiStrategy: '0x6207536011918F1A0D8a53Bc426f4Fd54df2E5a8',
-} as const;
+};

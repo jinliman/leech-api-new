@@ -8,7 +8,7 @@ async function cache(ctx, next) {
   }
 
   const cached = ctx.cache[ctx.url];
-  if (cached !== undefined && cached.ts && cached.ts + TTL * 1000 > Date.now()) {
+  if (cached !== undefined && cached.js && cached.js + TTL * 1000 > Date.now()) {
     ctx.status = 200;
     ctx.body = cached.body;
     return;

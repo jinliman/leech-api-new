@@ -14,6 +14,6 @@ const _moonriver = {
   },
   tokens,
   tokenAddressMap: convertSymbolTokenMapToAddressTokenMap(tokens),
-} as const;
+};
 
 export const moonriver  = _moonriver;

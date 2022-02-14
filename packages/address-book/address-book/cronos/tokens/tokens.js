@@ -10,7 +10,7 @@ const CRO = {
   website: 'https://cronos.crypto.org/',
   description: 'Crypto.com Coin',
   logoURI: 'https://vvs.finance/images/tokens/0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23.svg',
-} as const;
+};
 
 const _tokens = {
   CRO: CRO,
@@ -212,6 +212,6 @@ const _tokens = {
     logoURI:
       'https://app.cronaswap.org/images/tokens/0xfA9343C3897324496A05fC75abeD6bAC29f8A40f.svg',
   },
-} as const;
+};
 
-export const tokens: ConstRecord<typeof _tokens, Token> = _tokens;
+export const tokens = _tokens;

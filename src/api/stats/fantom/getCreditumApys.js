@@ -10,8 +10,8 @@ import {
   BASE_HPY,
   FANTOM_CHAIN_ID as chainId,
   SPOOKY_LPF as liquidityProviderFee,
-  BEEFY_PERFORMANCE_FEE as beefyPerformanceFee,
-  SHARE_AFTER_PERFORMANCE_FEE as shareAfterBeefyPerformanceFee,
+  LEECH_PERFORMANCE_FEE as leechPerformanceFee,
+  SHARE_AFTER_PERFORMANCE_FEE as shareAfterLeechPerformanceFee,
 } from '../../../constants';
 import { getFarmWithTradingFeesApy } from '../../../utils/getFarmWithTradingFeesApy';
 import { getCurveFactoryApy } from '../common/curve/getCurveApyData';
@@ -71,8 +71,8 @@ const getCreditumApys = async () => {
     const yearlyRewardsInUsd = yearlyRewards.times(rewardTokenPrice).dividedBy(rewardDecimals);
 
     const simpleApy = yearlyRewardsInUsd.dividedBy(totalStakedInUsd);
-    const vaultApr = simpleApy.times(shareAfterBeefyPerformanceFee);
-    const vaultApy = compound(simpleApy, BASE_HPY, 1, shareAfterBeefyPerformanceFee);
+    const vaultApr = simpleApy.times(shareAfterLeechPerformanceFee);
+    const vaultApy = compound(simpleApy, BASE_HPY, 1, shareAfterLeechPerformanceFee);
 
     const tradingApr = tradingAprs[pool.address.toLowerCase()] ?? new BigNumber(0);
     const totalApy = getFarmWithTradingFeesApy(
@@ -80,7 +80,7 @@ const getCreditumApys = async () => {
       tradingApr,
       BASE_HPY,
       1,
-      shareAfterBeefyPerformanceFee
+      shareAfterLeechPerformanceFee
     );
 
     // Create reference for legacy /apy
@@ -93,7 +93,7 @@ const getCreditumApys = async () => {
       [pool.name]: {
         vaultApr: vaultApr.toNumber(),
         compoundingsPerYear: BASE_HPY,
-        beefyPerformanceFee: beefyPerformanceFee,
+        leechPerformanceFee: leechPerformanceFee,
         vaultApy: vaultApy,
         lpFee: liquidityProviderFee,
         tradingApr: tradingApr.toNumber(),

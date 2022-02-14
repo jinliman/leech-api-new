@@ -8,7 +8,7 @@ import { addressBook } from '../../../../packages/address-book/address-book';
 const {
   aurora: {
     platforms: {
-      beefyfinance: { rewardPool },
+      leechfinance: { rewardPool },
     },
     tokens: { BIFI },
   },

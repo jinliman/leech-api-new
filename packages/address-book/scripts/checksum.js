@@ -2,21 +2,13 @@ import { addressBook, ChainId } from '../address-book';
 import { isValidChecksumAddress, toChecksumAddress } from 'ethereumjs-util';
 import { exit } from 'process';
 
-interface InvalidAddressInfo {
-  chainName: string;
-  platformName?: string;
-  address: string;
-  addressName: string;
-  correctAddress: string;
-}
-
-export const validateAllAddressesChecksum = (): InvalidAddressInfo[][] => {
-  const invalidPlatformAddressList: InvalidAddressInfo[] = [];
-  const invalidTokenAddressList: InvalidAddressInfo[] = [];
+export const validateAllAddressesChecksum = () => {
+  const invalidPlatformAddressList = [];
+  const invalidTokenAddressList = [];
 
   const chains = Object.entries(addressBook);
   for (const chain of chains) {
-    const chainName = chain[0] as Exclude<keyof typeof addressBook, ChainId>;
+    const chainName = chain[0];
     const { platforms, tokens } = chain[1];
     const platformEntries = Object.entries(platforms);
 
@@ -27,7 +19,7 @@ export const validateAllAddressesChecksum = (): InvalidAddressInfo[][] => {
 
       for (const addressEntry of Object.entries(addresses)) {
         const addressName = addressEntry[0];
-        const address = addressEntry[1] as string;
+        const address = addressEntry[1];
 
         const isValid = isValidChecksumAddress(address);
         const correctAddress = address ? toChecksumAddress(address) : '';

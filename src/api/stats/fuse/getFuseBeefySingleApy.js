@@ -19,9 +19,9 @@ const {
 } = addressBook;
 
 const BLOCKS_PER_DAY = 17280; // 5 Second Block Times
-const beefyPerformanceFee = 0.045;
+const leechPerformanceFee = 0.045;
 
-const getFuseBeefySingleApy = async () => {
+const getFuseLeechSingleApy = async () => {
   const [yearlyRewardsInUsd, totalStakedInUsd] = await Promise.all([
     getYearlyRewardsInUsd(),
     getTotalStakedInUsd(),
@@ -38,7 +38,7 @@ const getFuseBeefySingleApy = async () => {
       'fuse-fuse': {
         vaultApr: apr,
         compoundingsPerYear: BASE_HPY,
-        beefyPerformanceFee: beefyPerformanceFee,
+        leechPerformanceFee: leechPerformanceFee,
         vaultApy: apy,
         totalApy: apy,
       },
@@ -66,4 +66,4 @@ const getTotalStakedInUsd = async () => {
   return totalStaked.dividedBy(getEDecimals(WFUSE.decimals));
 };
 
-module.exports = getFuseBeefySingleApy;
+module.exports = getFuseLeechSingleApy;

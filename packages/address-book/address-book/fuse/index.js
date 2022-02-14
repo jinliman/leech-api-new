@@ -14,6 +14,6 @@ const _fuse = {
   },
   tokens,
   tokenAddressMap: convertSymbolTokenMapToAddressTokenMap(tokens),
-} as const;
+};
 
 export const fuse = _fuse;

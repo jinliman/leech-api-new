@@ -10,6 +10,6 @@ const _arbitrum = {
   },
   tokens,
   tokenAddressMap: convertSymbolTokenMapToAddressTokenMap(tokens),
-} as const;
+};
 
 export const arbitrum = _arbitrum;

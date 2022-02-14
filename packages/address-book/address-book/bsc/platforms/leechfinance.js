@@ -13,4 +13,4 @@ export const leechfinance = {
   gasPrice: '0x16cD932c494Ac1B3452d6C8453fB7665aB49EC6b',
   multicall: '0xB94858b0bB5437498F5453A16039337e5Fdc269C',
   bifiMaxiStrategy: '0x87056F5E8Dce0fD71605E6E291C6a3B53cbc3818',
-} as const;
+};

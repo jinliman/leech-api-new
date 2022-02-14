@@ -1,6 +1,3 @@
-import { ConstRecord } from '../../../types/const';
-import Token from '../../../types/token';
-
 const ETH = {
   name: 'Wrapped Ether',
   address: '0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB',
@@ -10,7 +7,7 @@ const ETH = {
   website: 'https://weth.io/',
   description: 'Ether or ETH is the native currency built on the Ethereum blockchain.',
   logoURI: 'https://arbiscan.io/token/images/weth_28.png',
-} as const;
+};
 
 const _tokens = {
   ETH,
@@ -208,6 +205,6 @@ const _tokens = {
     description:
       'Staked TRI. Trisolaris is #1 Dex on the Aurora engine, an EVM compatible blockchain running in the near ecosystem.',
   },
-} as const;
+};
 
-export const tokens: ConstRecord<typeof _tokens, Token> = _tokens;
+export const tokens = _tokens;

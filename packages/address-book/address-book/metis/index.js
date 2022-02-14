@@ -12,6 +12,6 @@ const _metis = {
   },
   tokens,
   tokenAddressMap: convertSymbolTokenMapToAddressTokenMap(tokens),
-} as const;
+};
 
 export const metis = _metis;

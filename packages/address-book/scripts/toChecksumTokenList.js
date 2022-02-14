@@ -1,7 +1,5 @@
 import { toChecksumAddress } from 'ethereumjs-util';
-import { TokenList } from '../util/tokenList';
 import fetch from 'node-fetch';
-import type Token from '../types/token';
 
 import transformTokenListToObject from '../util/transfomTokenListToObject';
 import chainIdMap from '../util/chainIdMap';
@@ -18,7 +16,7 @@ const tokenLists = {
   ],
 };
 
-const toChecksumTokenList = (tokens: Token[]): void => {
+const toChecksumTokenList = (tokens) => {
   for (const token of tokens) {
     token.address = toChecksumAddress(token.address);
   }
@@ -26,12 +24,12 @@ const toChecksumTokenList = (tokens: Token[]): void => {
 
 (async () => {
   const chainId = chainIdMap.bsc;
-  let tokens: Token[] = [];
+  let tokens = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let tokenListFinal: any;
+  let tokenListFinal;
   for (const tokenList of tokenLists.bsc) {
     const response = await fetch(tokenList);
-    const tokenListTmp = (await response.json()) as unknown as TokenList;
+    const tokenListTmp = (await response.json());
     tokenListFinal = tokenListTmp;
     tokens = [...tokens, ...tokenListTmp.tokens];
   }

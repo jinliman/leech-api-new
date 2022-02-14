@@ -2,13 +2,13 @@ import { compound } from './compound';
 
 export const getFarmWithTradingFeesApy = (
   farmApr,
-  tradingApr: number | undefined,
+  tradingApr,
   compoundingsPerYear,
   t,
-  shareAfterBeefyPerformanceFee
+  shareAfterLeechPerformanceFee
 ) => {
   const farmApy = farmApr
-    ? compound(farmApr, compoundingsPerYear, t, shareAfterBeefyPerformanceFee)
+    ? compound(farmApr, compoundingsPerYear, t, shareAfterLeechPerformanceFee)
     : 0;
   const finalAPY = (1 + farmApy) * (1 + Number(tradingApr || 0)) - 1;
   return finalAPY;

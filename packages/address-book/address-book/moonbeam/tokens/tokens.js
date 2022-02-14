@@ -1,6 +1,3 @@
-import { ConstRecord } from '../../../types/const';
-import Token from '../../../types/token';
-
 const GLMR = {
   name: 'Moonbeam',
   address: '0xAcc15dC74880C9944775448304B263D191c6077F',
@@ -11,7 +8,7 @@ const GLMR = {
   description:
     'A Polkadot Parachain Designed for Developers Moonbeam simplifies the developer experience by combining full Ethereum compatibility with the power of Polkadot, including scalability, cross-chain integrations, and on-chain governance.',
   logoURI: '',
-} as const;
+};
 
 const _tokens = {
   GLMR,
@@ -113,6 +110,6 @@ const _tokens = {
     description:
       'Fantom is a fast, high-throughput open-source smart contract platform for digital assets and dApps.',
   },
-} as const;
+};
 
-export const tokens: ConstRecord<typeof _tokens, Token> = _tokens;
+export const tokens = _tokens;

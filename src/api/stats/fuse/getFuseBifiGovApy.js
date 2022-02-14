@@ -8,7 +8,7 @@ import { addressBook } from '../../../../packages/address-book/address-book';
 const {
   fuse: {
     platforms: {
-      beefyfinance: { rewardPool },
+      leechfinance: { rewardPool },
     },
     tokens: { BIFI },
   },

@@ -10,6 +10,6 @@ const _one = {
   },
   tokens,
   tokenAddressMap: convertSymbolTokenMapToAddressTokenMap(tokens),
-} as const;
+};
 
 export const one  = _one;

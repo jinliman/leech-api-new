@@ -3,7 +3,6 @@
   "version": "0.14.5",
   "description": "A collection of useful addresses on various chains for defi development",
   "main": "build/address-book/index.js",
-  "types": "build/address-book/index.d.ts",
   "files": [
     "build/address-book/",
     "build/util/",
@@ -12,8 +11,8 @@
   "license": "MIT",
   "scripts": {
     "compile": "tsc",
-    "checksum": "ts-node ./scripts/checksum.ts",
-    "checksummify": "ts-node ./scripts/toChecksumTokenList.ts",
+    "checksum": "ts-node ./scripts/checksum.js",
+    "checksummify": "ts-node ./scripts/toChecksumTokenList.js",
     "submit": "yarn checksum && yarn compile && yarn publish"
   },
   "devDependencies": {
@@ -31,11 +30,5 @@
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   },
-  "dependencies": {},
-  "lint-staged": {
-    "**/*.ts": [
-      "eslint --fix",
-      "prettier --write"
-    ]
-  }
+  "dependencies": {}
 }

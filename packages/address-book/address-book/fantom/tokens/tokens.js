@@ -11,7 +11,7 @@ const ETH = {
   description:
     'The native currency that flows within the Ethereum economy is called Ether (ETH). Ether is typically used to pay for transaction fees called Gas, and it is the base currency of the network.',
   logoURI: 'https://ftmscan.com/token/images/wETH_32.png',
-} as const;
+};
 
 const BTC = {
   name: 'Wrapped Bitcoin',
@@ -23,7 +23,7 @@ const BTC = {
   description:
     'Wrapped Bitcoin (WBTC) is the first ERC20 token backed 1:1 with Bitcoin. Completely transparent. 100% verifiable. Community led.',
   logoURI: 'https://ftmscan.com/token/images/wBTC_32.png',
-} as const;
+};
 
 const FTM = {
   name: 'Wrapped Fantom',
@@ -35,7 +35,7 @@ const FTM = {
   description:
     'Fantom is a fast, high-throughput open-source smart contract platform for digital assets and dApps.',
   logoURI: 'https://ftmscan.com/token/images/wFtm_32.png',
-} as const;
+};
 
 const _tokens = {
   PAE: {
@@ -1145,6 +1145,6 @@ const _tokens = {
     website: 'https://www.liquiddriver.finance/',
     description: 'Incentivizing deep liquidity for SushiSwap on Fantom Opera.',
   },
-} as const;
+};
 
-export const tokens: ConstRecord<typeof _tokens, Token> = _tokens;
+export const tokens = _tokens;

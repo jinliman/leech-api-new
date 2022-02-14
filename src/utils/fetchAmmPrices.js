@@ -19,7 +19,7 @@ const MULTICALLS = {
   1284: '0xd9F2Da642FAA1307e4F70a5E3aC31b9bfe920eAF',
 };
 
-const MulticallAbi = require('../abis/BeefyPriceMulticall.json');
+const MulticallAbi = require('../abis/LeechPriceMulticall.json');
 const ERC20 = require('../abis/common/ERC20/ERC20.json');
 const BATCH_SIZE = 128;
 

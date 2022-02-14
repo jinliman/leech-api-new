@@ -18,7 +18,7 @@ const {
 } = addressBook;
 
 const SECONDS_PER_DAY = 86400; // Per Second Rewards
-const beefyPerformanceFee = 0.045;
+const leechPerformanceFee = 0.045;
 
 const getSolaceApy = async () => {
   const [yearlyRewardsInUsd, totalStakedInUsd] = await Promise.all([
@@ -37,7 +37,7 @@ const getSolaceApy = async () => {
       'solace-solace': {
         vaultApr: apr,
         compoundingsPerYear: BASE_HPY,
-        beefyPerformanceFee: beefyPerformanceFee,
+        leechPerformanceFee: leechPerformanceFee,
         vaultApy: apy,
         totalApy: apy,
       },

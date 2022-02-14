@@ -11,7 +11,7 @@ const HT = {
     description:
       'HT (Huobi Token) is a blockchain-powered loyalty point system. It is the only token that Huobi officially launched. HT supports Huobi Global business and all products, such as VIP discount, HT exclusive events, trading against popular coins and "let your voice be heard".',
   logoURI: 'https://s2.coinmarketcap.com/static/img/coins/64x64/8524.png',
-} as const;
+};
 
 const _tokens = {
   HT,
@@ -242,5 +242,5 @@ const _tokens = {
     logoURI:
       'https://hecoinfo.com/token/images/HFIL_32.png',
   },
-} as const;
-export const tokens: ConstRecord<typeof _tokens, Token> = _tokens;
+};
+export const tokens = _tokens;
