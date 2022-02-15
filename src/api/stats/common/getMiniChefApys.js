@@ -19,8 +19,8 @@ const DECIMALS = '1e18';
 const secondsPerBlock = 1;
 const secondsPerYear = 31536000;
 
-export const getMiniChefApys = async () => {
-  const { pools, tradingClient, sushiClient, liquidityProviderFee } = params;
+export const getMiniChefApys = async (params) => {
+  const { pools, tradingClient, liquidityProviderFee } = params;
   const pairAddresses = pools.map(pool => pool.address);
   let tradingAprs;
   let fee;

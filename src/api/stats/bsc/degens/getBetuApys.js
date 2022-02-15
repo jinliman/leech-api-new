@@ -23,10 +23,9 @@ const getBetuApys = async () => {
   const yearlyRewards = new BigNumber(rewardPerBlock).times(BLOCKS_PER_DAY).times(365);
   const yearlyRewardsInUsd = yearlyRewards.times(tokenPrice).div(DECIMALS);
   const totalStakedInUsd = new BigNumber(totalStaked).times(tokenPrice).div(DECIMALS);
-
   const simpleApy = yearlyRewardsInUsd.dividedBy(totalStakedInUsd);
   const apy = compound(simpleApy, process.env.BASE_HPY, 1, 0.955);
-  // console.log("betu", apy, totalStakedInUsd.valueOf(), yearlyRewardsInUsd.valueOf(), simpleApy.valueOf());
+  
   return { 'betu-betu': apy };
 };
 

@@ -1,10 +1,8 @@
 import BigNumber from 'bignumber.js';
 import { bscWeb3 as web3 } from '../../../../utils/web3';
-
 import ERC20 from '../../../../abis/ERC20.json';
 import AlpacaIbVault from '../../../../abis/AlpacaIbVault.json';
 import AlpacaIbVaultConfig from '../../../../abis/AlpacaIbVaultConfig.json';
-
 import getCakeV2PoolApy from '../pancake/getCakeV2PoolApy';
 import fetchPrice from '../../../../utils/fetchPrice';
 import getApyBreakdown from '../../common/getApyBreakdown';
@@ -42,7 +40,6 @@ const getPoolApy = async pool => {
   ]);
 
   const simpleApy = yearlyRewardsInUsd.dividedBy(totalStakedInUsd);
-  // console.log(pool.name, 'pool apr', simpleApy.toNumber());
   return simpleApy;
 };
 
@@ -63,8 +60,7 @@ const getLendingApr = async pool => {
   const config = new web3.eth.Contract(AlpacaIbVaultConfig, configAddress);
   const rate = new BigNumber(await config.methods.getInterestRate(vaultDebtVal, floating).call());
   const lendingApr = rate.times(31536000).times(0.81).times(utilization).div('1e18');
-  // console.log(pool.name, 'lending apr', lendingApr.toNumber());
-
+  
   let protocolApr = new BigNumber(0);
   if (pool.workers) {
     const cakeApy = (await getCakeV2PoolApy())['cake-cakev2'];
@@ -93,7 +89,6 @@ const getLendingApr = async pool => {
     const totalSupplyInUsd = totalToken.times(tokenPrice).div('1e18');
 
     protocolApr = cakeRewardInUsd.div(totalSupplyInUsd);
-    // console.log('protocol apr', protocolApr.toNumber());
   }
 
   return lendingApr.plus(protocolApr);

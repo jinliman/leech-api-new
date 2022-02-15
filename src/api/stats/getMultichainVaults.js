@@ -45,15 +45,6 @@ const updateMultichainVaults = async () => {
           multichainActiveVaultsCounter += 1;
         }
       }
-
-      // console.log(
-      //   'Found',
-      //   chainVaultsCounter,
-      //   'vaults (',
-      //   chainActiveVaultsCounter,
-      //   'active ) in',
-      //   chain
-      // );
     }
 
     console.log(

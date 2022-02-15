@@ -66,8 +66,6 @@ const getTriMinichefApys = async () => {
     const vaultApr = simpleApy.times(shareAfterLeechPerformanceFee);
     const vaultApy = compound(simpleApy, BASE_HPY, 1, shareAfterLeechPerformanceFee);
 
-    // console.log(pool.name, simpleApy.valueOf(), tradingApr.valueOf(), apy, totalStakedInUsd.valueOf(), yearlyRewardsInUsd.valueOf());
-
     // Create reference for legacy /apy
     const legacyApyValue = { [pool.name]: vaultApy };
 
