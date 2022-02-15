@@ -19,7 +19,7 @@ const DECIMALS = '1e18';
 const BLOCKS_PER_DAY = 28800;
 
 const leechPerformanceFee = 0.045;
-const shareAfterleechPerformanceFee = 1 - leechPerformanceFee;
+const shareAfterLeechPerformanceFee = 1 - leechPerformanceFee;
 
 const getComethLpApys = async () => {
   let apys = {};

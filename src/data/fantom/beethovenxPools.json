@@ -729,16 +729,6 @@
       },
       {
         "oracle": "tokens",
-        "oracleId": "mooFantomBIFI",
-        "decimals": "1e18"
-      },
-      {
-        "oracle": "tokens",
-        "oracleId": "BIFI",
-        "decimals": "1e18"
-      },
-      {
-        "oracle": "tokens",
         "oracleId": "BEETS",
         "decimals": "1e18"
       }

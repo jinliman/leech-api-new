@@ -9,5 +9,5 @@ export interface LeechFinance {
   treasury: string;
   leechFeeRecipient: string;
   multicall: string;
-  bifiMaxiStrategy?: string;
+  leechMaxiStrategy?: string;
 }

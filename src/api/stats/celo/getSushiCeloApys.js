@@ -4,8 +4,8 @@ import { getMiniChefApys } from '../common/getMiniChefApys';
 import { sushiCeloClient } from '../../../apollo/client';
 import pools from '../../../data/celo/sushiv2LpPools.json';
 import SushiMiniChefV2 from '../../../abis/matic/SushiMiniChefV2.json';
-
 import { addressBook } from '../../../../packages/address-book/address-book';
+
 const {
   celo: {
     platforms: {

@@ -11,5 +11,5 @@ export const leechfinance = {
   treasury: '0xf4859A3f36fBcA24BF8299bf56359fB441b03034',
   leechFeeRecipient: '0x250EB557D7a767ee711c7C11988470669a5306BB',
   multicall: '0x2776CF9B6E2Fa7B33A37139C3CB1ee362Ff0356e',
-  bifiMaxiStrategy: '0xfdF1088F5B9Bd338D5197aCfB00b468f04bCC374',
+  leechMaxiStrategy: '0xfdF1088F5B9Bd338D5197aCfB00b468f04bCC374',
 };

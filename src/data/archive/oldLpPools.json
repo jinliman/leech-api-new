@@ -18,24 +18,6 @@
     }
   },
   {
-    "name": "vvs-cro-bifi",
-    "address": "0x1803e360393a472bec6e1a688bdf7048d3076b1a",
-    "decimals": "1e18",
-    "chainId": 25,
-    "lp0": {
-      "address": "0x5C7F8A570d578ED84E63fdFA7b1eE72dEae1AE23",
-      "oracle": "tokens",
-      "oracleId": "WCRO",
-      "decimals": "1e18"
-    },
-    "lp1": {
-      "address": "0xe6801928061CDbE32AC5AD0634427E140EFd05F9",
-      "oracle": "tokens",
-      "oracleId": "BIFI",
-      "decimals": "1e18"
-    }
-  },
-  {
     "name": "banana-wbnb-nugget",
     "address": "0x93ebebff79C504e1F0B6946A6F2fe693E811470A",
     "decimals": "1e18",
@@ -366,46 +348,6 @@
       "address": "0xaAa5B9e6c589642f98a1cDA99B9D024B8407285A",
       "oracle": "tokens",
       "oracleId": "TITAN",
-      "decimals": "1e18"
-    }
-  },
-  {
-    "name": "quick-bifi-eth",
-    "address": "0x8b80417D92571720949fC22404200AB8FAf7775f",
-    "rewardPool": "0xd79424b32E2Ef944AA9f4021d39D835fdd615B87",
-    "decimals": "1e18",
-    "poolId": 0,
-    "chainId": 137,
-    "lp0": {
-      "address": "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619",
-      "oracle": "tokens",
-      "oracleId": "ETH",
-      "decimals": "1e18"
-    },
-    "lp1": {
-      "address": "0xFbdd194376de19a88118e84E279b977f165d01b8",
-      "oracle": "tokens",
-      "oracleId": "BIFI",
-      "decimals": "1e18"
-    }
-  },
-  {
-    "name": "quick-bifi-quick",
-    "address": "0xC6a23BDd628c3B17fc0dF270e6BF8E48511950e2",
-    "rewardPool": "0xA2B969faCA14AAdeb6a7672c941A228260a481a2",
-    "decimals": "1e18",
-    "poolId": 0,
-    "chainId": 137,
-    "lp0": {
-      "address": "0x831753DD7087CaC61aB5644b308642cc1c33Dc13",
-      "oracle": "tokens",
-      "oracleId": "QUICK",
-      "decimals": "1e18"
-    },
-    "lp1": {
-      "address": "0xFbdd194376de19a88118e84E279b977f165d01b8",
-      "oracle": "tokens",
-      "oracleId": "BIFI",
       "decimals": "1e18"
     }
   },
@@ -907,24 +849,6 @@
     }
   },
   {
-    "name": "fusefi-wfuse-bifi",
-    "address": "0xbD8923A4028c5D6b6B8698ad4342104302611914",
-    "decimals": "1e18",
-    "chainId": 122,
-    "lp0": {
-      "address": "0x0BE9e53fd7EDaC9F859882AfdDa116645287C629",
-      "oracle": "tokens",
-      "oracleId": "WFUSE",
-      "decimals": "1e18"
-    },
-    "lp1": {
-      "address": "0x2bF9b864cdc97b08B6D79ad4663e71B8aB65c45c",
-      "oracle": "tokens",
-      "oracleId": "BIFI",
-      "decimals": "1e18"
-    }
-  },
-  {
     "name": "sushi-one-1crv-1eth",
     "address": "0xE21F393cA66607800042EbbeE0e8D9A0c3B8b333",
     "decimals": "1e18",
@@ -939,42 +863,6 @@
       "address": "0x6983D1E6DEf3690C4d616b13597A09e6193EA013",
       "oracle": "tokens",
       "oracleId": "1ETH",
-      "decimals": "1e18"
-    }
-  },
-  {
-    "name": "trisolaris-bifi-weth",
-    "address": "0x1BA69B9F1843215110E0c50C7FF75d26B4459e10",
-    "decimals": "1e18",
-    "chainId": 1313161554,
-    "lp0": {
-      "address": "0x218c3c3D49d0E7B37aff0D8bB079de36Ae61A4c0",
-      "oracle": "tokens",
-      "oracleId": "BIFI",
-      "decimals": "1e18"
-    },
-    "lp1": {
-      "address": "0xC9BdeEd33CD01541e1eeD10f90519d2C06Fe3feB",
-      "oracle": "tokens",
-      "oracleId": "WETH",
-      "decimals": "1e18"
-    }
-  },
-  {
-    "name": "beamswap-bifi-wglmr",
-    "address": "0x321e45B7134b5Ed52129027F1743c8E71DA0A339",
-    "decimals": "1e18",
-    "chainId": 1313161554,
-    "lp0": {
-      "address": "0x595c8481c48894771CE8FaDE54ac6Bf59093F9E8",
-      "oracle": "tokens",
-      "oracleId": "BIFI",
-      "decimals": "1e18"
-    },
-    "lp1": {
-      "address": "0xAcc15dC74880C9944775448304B263D191c6077F",
-      "oracle": "tokens",
-      "oracleId": "WGLMR",
       "decimals": "1e18"
     }
   }
